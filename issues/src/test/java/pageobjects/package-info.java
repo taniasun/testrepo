@@ -5,5 +5,5 @@
  * @author rise
  *
  */
-package test.java;
+package test.java.pageobjects;
 

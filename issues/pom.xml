@@ -16,6 +16,11 @@
       <!-- use 3.3.0 for Java 8 projects -->
       <version>3.3.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>2.52.0</version>
+    </dependency>  
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -32,10 +37,10 @@
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-surefire-plugin</artifactId>
        <version>2.19.1</version>
-      <!--  <configuration>
-         <parallel>methods</parallel>
-         <threadCount>10</threadCount>
-       </configuration> -->
+        <configuration>
+      <!--  <parallel>methods</parallel>
+         <threadCount>10</threadCount>-->
+        </configuration>
      </plugin>
     </plugins>
   </build>

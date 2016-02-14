@@ -9,14 +9,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import test.java.core.Issue;
 import test.java.core.Log;
-import test.java.pageobjects.forms.NewIssueForm;
 
 public class GitHubIssuesPage extends BasePage {
 
     public static final String URL = "https://github.com/taniasun/testrepo/issues";
-
-    @FindBy(xpath = "//nav//a[contains(@href, 'issues')]")
-    private WebElement tabIssues;
 
     @FindBy(xpath = "//li[contains(@id, 'issue')]")
     private List<WebElement> liIssues;
@@ -29,7 +25,7 @@ public class GitHubIssuesPage extends BasePage {
     }
 
     public boolean isOpened() {
-        return isElementSelected(tabIssues);
+        return isElementDisplayed(btnNewIssue);
     }
 
     public List<Issue> getIssues() {
@@ -41,8 +37,8 @@ public class GitHubIssuesPage extends BasePage {
         return liIssues.size();
     }
 
-    public NewIssueForm clickButtonNewIssue() {
+    public <T extends BasePage> T clickButtonNewIssue(Class<T> clazz) {
         btnNewIssue.click();
-        return PageFactory.initElements(getDriver(), NewIssueForm.class);
+        return PageFactory.initElements(getDriver(), clazz);
     }
 }

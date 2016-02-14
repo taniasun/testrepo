@@ -5,8 +5,9 @@ public class User {
     private String username;
     private String password;
 
-    public User getUser() {
-        return new User().setUsername("taniasun-testuser").setPassword("Password12#$");
+    public static User getUser() {
+        return new User().setUsername("taniasun-testuser")
+                .setPassword("Password12#$");
     }
 
     public User setPassword(String password) {

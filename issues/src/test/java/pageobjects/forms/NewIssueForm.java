@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import test.java.pageobjects.BasePage;
-import test.java.pageobjects.GitHubIssuesPage;
 
 public class NewIssueForm extends BasePage {
 
@@ -22,7 +21,7 @@ public class NewIssueForm extends BasePage {
     @FindBy(xpath = "//div[@class='form-actions']//button[@type='submit']")
     private WebElement btnSubmit;
 
-    protected NewIssueForm(WebDriver driver) {
+    public NewIssueForm(WebDriver driver) {
         super(driver);
     }
 
@@ -40,10 +39,9 @@ public class NewIssueForm extends BasePage {
         txtBody.sendKeys(body);
     }
 
-    public GitHubIssuesPage clickButtonSubmit() {
+    public ViewIssueForm clickButtonSubmit() {
         btnSubmit.click();
         waitForElelemtDisappear(btnSubmit);
-        return PageFactory.initElements(getDriver(), GitHubIssuesPage.class);
+        return PageFactory.initElements(getDriver(), ViewIssueForm.class);
     }
-
 }

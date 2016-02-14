@@ -2,11 +2,18 @@ package test.java.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import test.java.core.Log;
 
 public abstract class BasePage {
+
+    @FindBy(xpath = "//nav//a[contains(@aria-label, 'Issues')]")
+    private WebElement tabIssues;
+
+    @FindBy(xpath = "//nav//a[contains(@aria-label, 'Code')]")
+    private WebElement tabCode;
 
     private final WebDriver driver;
 
@@ -56,5 +63,14 @@ public abstract class BasePage {
             }
         }
         Log.info(String.format("Element is not disappeared after %s ms", ms));
+    }
+
+    public GitHubIssuesPage clickTabIssues() {
+        tabIssues.click();
+        return PageFactory.initElements(getDriver(), GitHubIssuesPage.class);
+    }
+
+    public boolean isTabCodeSelected() {
+        return isElementSelected(tabCode);
     }
 }

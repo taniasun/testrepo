@@ -13,11 +13,12 @@ import test.java.pageobjects.GitHubIssuesPage;
 import test.java.pageobjects.GitHubRepositoryPage;
 
 public class TestOpenIssuesPage {
-    private static WebDriver driver = Configuration.getChromeDriver();
+    private static WebDriver driver;
     private static GitHubRepositoryPage mainPage;
 
     @BeforeClass
     public static void setUp() {
+        driver = Configuration.getChromeDriver();
         mainPage = PageFactory.initElements(driver, GitHubRepositoryPage.class);
     }
 

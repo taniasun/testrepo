@@ -20,18 +20,18 @@ public class ApiService {
     public static int createIssue(Issue issue) throws UnirestException {
         final String auth = getAuthToken();
 
-        final String json = " { \"title\": \"Found a bug\","
-                + " \"body\": \"I'm having a problem with this.\","
+        final String json = " { \"title\": \"" + issue.getTitle() + "\","
+                + " \"body\": \"" + issue.getBody() + "\","
                 + " \"assignee\": \"" + username + "\"}";
 
-        final HttpResponse<JsonNode> jsonResponse = Unirest.post(endpoint + "/repos/taniasun/testrepo/issues")
+        final HttpResponse<JsonNode> asJson = Unirest.post(endpoint + "/repos/taniasun/testrepo/issues")
                 .header("accept", "application/json")
                 .header("Authorization ", "Basic " + auth)
                 .body(json)
                 .asJson();
-
-        jsonResponse.getBody();
-        final int status = jsonResponse.getStatus();
+        final int status = asJson.getStatus();
+        Log.info("Create Issue Status: " + status);
+        Log.info("Create Issue Body: " + asJson.getBody());
         return status;
     }
 
@@ -41,29 +41,29 @@ public class ApiService {
         final HttpResponse<String> asString = Unirest.get(endpoint + "/repos/taniasun/testrepo/issues")
                 .header("Authorization ", "Basic " + auth)
                 .asString();
-
-        asString.getBody();
-        asString.getStatus();
+        Log.info("Get Issues Status: " + asString.getStatus());
+        Log.info("Get Issues Body: " + asString.getBody());
 
         final Issue[] issue = new Gson().fromJson(asString.getBody(), Issue[].class);
-
         final List<Issue> list = Arrays.asList(issue);
-
         return list;
     }
 
     private static String getAuthToken() {
+        Log.info("Getting oath token... ");
         final Properties prop = new Properties();
         InputStream is;
         try {
             is = new FileInputStream("config.properties");
             prop.load(is);
         } catch (final Exception e) {
-            e.printStackTrace();
+            Log.info(e.getMessage());
         }
+
         final String token = prop.getProperty("personal.token");
         final String auth = String.format("%s:%s", username, token);
         final String string = Base64.getUrlEncoder().encodeToString(auth.getBytes());
+        Log.info("Oath token: " + string);
         return string;
     }
 }

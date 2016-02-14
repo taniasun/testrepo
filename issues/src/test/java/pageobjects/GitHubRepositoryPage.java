@@ -15,6 +15,9 @@ public class GitHubRepositoryPage extends BasePage {
     @FindBy(xpath = "//nav//a[contains(@aria-label, 'Code')]")
     private WebElement tabCode;
 
+    @FindBy(xpath = "//a[contains(@class, 'file')]")
+    private WebElement btnFindFile;
+
     public GitHubRepositoryPage(WebDriver driver) {
         super(driver);
     }
@@ -25,6 +28,8 @@ public class GitHubRepositoryPage extends BasePage {
 
     public GitHubIssuesPage clickTabIssues() {
         tabIssues.click();
+        waitForElelemtDisappear(btnFindFile);
         return PageFactory.initElements(getDriver(), GitHubIssuesPage.class);
     }
+
 }

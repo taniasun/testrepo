@@ -1,5 +1,7 @@
 package test.java.entities;
 
+import org.joda.time.DateTime;
+
 public class Issue {
 
     private String id;
@@ -34,7 +36,7 @@ public class Issue {
     }
 
     public static Issue getIssue() {
-        return new Issue().setTitle("test title").setBody("body");
+        return new Issue().setTitle("Test title: " + DateTime.now()).setBody("body");
     }
 
 }

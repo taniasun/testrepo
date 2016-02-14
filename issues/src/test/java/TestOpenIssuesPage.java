@@ -9,17 +9,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import test.java.core.Configuration;
-import test.java.pageobjects.GitHubIssuesPage;
-import test.java.pageobjects.GitHubRepositoryPage;
+import test.java.pageobjects.IssuesPage;
+import test.java.pageobjects.RepositoryPage;
 
 public class TestOpenIssuesPage {
     private static WebDriver driver;
-    private static GitHubRepositoryPage mainPage;
+    private static RepositoryPage mainPage;
 
     @BeforeClass
     public static void setUp() {
         driver = Configuration.getChromeDriver();
-        mainPage = PageFactory.initElements(driver, GitHubRepositoryPage.class);
+        mainPage = PageFactory.initElements(driver, RepositoryPage.class);
     }
 
     @AfterClass
@@ -29,7 +29,7 @@ public class TestOpenIssuesPage {
 
     @Test
     public void testOpenIssueTabByLink() {
-        final GitHubIssuesPage issuesPage = mainPage.openPageByLink(GitHubIssuesPage.class, GitHubIssuesPage.URL);
+        final IssuesPage issuesPage = mainPage.openPageByLink(IssuesPage.class, IssuesPage.URL);
         assertThat(issuesPage.isOpened()).as("Issues page is opened").isTrue();
     }
 
@@ -37,7 +37,7 @@ public class TestOpenIssuesPage {
     public void testOpenIssueTabByClickOnTab() {
         assertThat(mainPage.isOpened()).as("Repository page is opened").isTrue();
 
-        final GitHubIssuesPage issuesPage = mainPage.clickTabIssues();
+        final IssuesPage issuesPage = mainPage.clickTabIssues();
         assertThat(issuesPage.isOpened()).as("Issues page is opened").isTrue();
     }
 }

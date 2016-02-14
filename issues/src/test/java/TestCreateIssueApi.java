@@ -8,7 +8,7 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import test.java.core.ApiService;
-import test.java.core.Issue;
+import test.java.entities.Issue;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 

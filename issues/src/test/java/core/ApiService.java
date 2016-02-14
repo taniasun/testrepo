@@ -1,8 +1,11 @@
 package test.java.core;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+import java.util.Properties;
 
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
@@ -12,7 +15,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class ApiService {
     private static final String username = "taniasun";
-    private static final String token = "31ccc59cdde92820cb3678c6aa96013ab24e2122";
     private static final String endpoint = "https://api.github.com";
 
     public static int createIssue(Issue issue) throws UnirestException {
@@ -40,16 +42,26 @@ public class ApiService {
                 .header("Authorization ", "Basic " + auth)
                 .asString();
 
+        asString.getBody();
+        asString.getStatus();
+
         final Issue[] issue = new Gson().fromJson(asString.getBody(), Issue[].class);
 
         final List<Issue> list = Arrays.asList(issue);
-        asString.getBody();
-        asString.getStatus();
 
         return list;
     }
 
     private static String getAuthToken() {
+        final Properties prop = new Properties();
+        InputStream is;
+        try {
+            is = new FileInputStream("config.properties");
+            prop.load(is);
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+        final String token = prop.getProperty("personal.token");
         final String auth = String.format("%s:%s", username, token);
         final String string = Base64.getUrlEncoder().encodeToString(auth.getBytes());
         return string;

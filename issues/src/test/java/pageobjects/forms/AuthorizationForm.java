@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import test.java.core.User;
+import test.java.entities.User;
 import test.java.pageobjects.BasePage;
 
 public class AuthorizationForm extends BasePage {

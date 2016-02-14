@@ -9,10 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import test.java.core.Configuration;
-import test.java.core.Issue;
-import test.java.core.User;
-import test.java.pageobjects.GitHubIssuesPage;
-import test.java.pageobjects.GitHubRepositoryPage;
+import test.java.entities.Issue;
+import test.java.entities.User;
+import test.java.pageobjects.IssuesPage;
+import test.java.pageobjects.RepositoryPage;
 import test.java.pageobjects.forms.AuthorizationForm;
 import test.java.pageobjects.forms.NewIssueForm;
 import test.java.pageobjects.forms.ViewIssueForm;
@@ -36,9 +36,9 @@ public class TestCreateIssueUi {
 
     @Test
     public void testCreateIssueUi() {
-        final GitHubRepositoryPage mainPage = PageFactory.initElements(driver, GitHubRepositoryPage.class);
+        final RepositoryPage mainPage = PageFactory.initElements(driver, RepositoryPage.class);
 
-        GitHubIssuesPage issuesPage = mainPage.clickTabIssues();
+        IssuesPage issuesPage = mainPage.clickTabIssues();
         assertThat(issuesPage.isOpened()).as("Issues page is opened").isTrue();
 
         final int issuesCountBefore = issuesPage.getIssuesCount();

@@ -7,6 +7,8 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 
+import test.java.entities.Issue;
+
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;

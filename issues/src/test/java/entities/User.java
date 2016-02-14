@@ -1,4 +1,4 @@
-package test.java.core;
+package test.java.entities;
 
 public class User {
 

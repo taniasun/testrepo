@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import test.java.pageobjects.GitHubRepositoryPage;
+import test.java.pageobjects.RepositoryPage;
 
 public class Configuration {
 
@@ -14,7 +14,7 @@ public class Configuration {
         final WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.navigate().to(GitHubRepositoryPage.URL);
+        driver.navigate().to(RepositoryPage.URL);
         return driver;
     }
 }

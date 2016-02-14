@@ -7,10 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import test.java.core.Issue;
 import test.java.core.Log;
+import test.java.entities.Issue;
 
-public class GitHubIssuesPage extends BasePage {
+public class IssuesPage extends BasePage {
 
     public static final String URL = "https://github.com/taniasun/testrepo/issues";
 
@@ -20,7 +20,7 @@ public class GitHubIssuesPage extends BasePage {
     @FindBy(xpath = "//a[contains(@href, 'new') and contains(@class, 'btn')]")
     private WebElement btnNewIssue;
 
-    public GitHubIssuesPage(WebDriver driver) {
+    public IssuesPage(WebDriver driver) {
         super(driver);
     }
 

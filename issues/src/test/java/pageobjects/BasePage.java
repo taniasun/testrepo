@@ -57,7 +57,7 @@ public abstract class BasePage {
     public void waitForElementDisappear(WebElement element, int ms) {
         for (int i = 0; i < ms; ++i) {
             if (!isElementDisplayed(element)) {
-                // not really.. but at least something
+                // wait 1ms ..
                 Log.info(String.format("Element is disappeared after %s ms", i));
                 return;
             }
@@ -65,9 +65,9 @@ public abstract class BasePage {
         Log.info(String.format("Element is not disappeared after %s ms", ms));
     }
 
-    public GitHubIssuesPage clickTabIssues() {
+    public IssuesPage clickTabIssues() {
         tabIssues.click();
-        return PageFactory.initElements(getDriver(), GitHubIssuesPage.class);
+        return PageFactory.initElements(getDriver(), IssuesPage.class);
     }
 
     public boolean isTabCodeSelected() {

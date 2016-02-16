@@ -16,7 +16,15 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class ApiService {
-    private static final String username = "taniasun";
+    private static final String USERNAME;
+    private static final String REPO;
+
+    static {
+        final Properties properties = loadProperties();
+        USERNAME = properties.getProperty("user.name");
+        REPO = properties.getProperty("user.repo");
+    }
+
     private static final String endpoint = "https://api.github.com";
 
     public static int createIssue(Issue issue) throws UnirestException {
@@ -24,9 +32,9 @@ public class ApiService {
 
         final String json = " { \"title\": \"" + issue.getTitle() + "\","
                 + " \"body\": \"" + issue.getBody() + "\","
-                + " \"assignee\": \"" + username + "\"}";
+                + " \"assignee\": \"" + USERNAME + "\"}";
 
-        final HttpResponse<JsonNode> asJson = Unirest.post(endpoint + "/repos/taniasun/testrepo/issues")
+        final HttpResponse<JsonNode> asJson = Unirest.post(endpoint + getReposUrl())
                 .header("accept", "application/json")
                 .header("Authorization ", "Basic " + auth)
                 .body(json)
@@ -40,7 +48,7 @@ public class ApiService {
     public static List<Issue> getIssues() throws UnirestException {
         final String auth = getAuthToken();
 
-        final HttpResponse<String> asString = Unirest.get(endpoint + "/repos/taniasun/testrepo/issues")
+        final HttpResponse<String> asString = Unirest.get(endpoint + getReposUrl())
                 .header("Authorization ", "Basic " + auth)
                 .asString();
         Log.info("Get Issues Status: " + asString.getStatus());
@@ -52,20 +60,30 @@ public class ApiService {
     }
 
     private static String getAuthToken() {
-        Log.info("Getting oath token... ");
-        final Properties prop = new Properties();
-        InputStream is;
+        Log.info("Getting oauth token... ");
+        final Properties prop = loadProperties();
+
+        final String token = prop.getProperty("user.token");
+        final String auth = String.format("%s:%s", USERNAME, token);
+        final String string = Base64.getUrlEncoder().encodeToString(auth.getBytes());
+        Log.info("OAuth token: " + string);
+        return string;
+    }
+
+    private static String getReposUrl() {
+        final String url = String.format("/repos/%s/%s/issues", USERNAME, REPO);
+        return url;
+    }
+
+    private static Properties loadProperties() {
+        final Properties properties = new Properties();
+        InputStream inputStream;
         try {
-            is = new FileInputStream("config.properties");
-            prop.load(is);
+            inputStream = new FileInputStream("config.properties");
+            properties.load(inputStream);
         } catch (final Exception e) {
             Log.info(e.getMessage());
         }
-
-        final String token = prop.getProperty("personal.token");
-        final String auth = String.format("%s:%s", username, token);
-        final String string = Base64.getUrlEncoder().encodeToString(auth.getBytes());
-        Log.info("Oath token: " + string);
-        return string;
+        return properties;
     }
 }
